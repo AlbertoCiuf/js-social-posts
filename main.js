@@ -55,3 +55,58 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
+
+const container = document.getElementById('container');
+
+for (let index in posts) {
+
+    //assegno ad una costante ogni singolo oggetto presente nell'array posts
+    const singlePost = posts[index];
+    //chiamo la funzine che genera e stampa il contenuto della pagina
+    drawPosts(container, singlePost);
+
+}
+
+
+//funzione che genera e stampa in html il contenuto
+function drawPosts(target, singPost) {
+    //creo l'elemento html post
+    const post = document.createElement('div');
+    post.className='post';
+
+    //gestisco l'innerHTML dell'elemento post inserendo come contenuto le proprietà degli oggetti nell'array posts
+    post.innerHTML = 
+    `
+        <div class="post__header">
+            <div class="post-meta">
+                <div class="post-meta__icon">
+                    <img class="profile-pic" src="${singPost.author.image}" alt="${singPost.author.name}" />
+                </div>
+
+                <div class="post-meta__data">
+                    <div class="post-meta__author">${singPost.author.name}</div>
+                    <div class="post-meta__time">${singPost.created}</div>
+                </div>
+            </div>
+        </div>
+        <div class="post__text">${singPost.content}</div>
+            <div class="post__image">
+                <img src="${singPost.media}" alt="">
+            </div>
+            <div class="post__footer">
+                <div class="likes js-likes">
+                    <div class="likes__cta">
+                        <a class="like-button  js-like-button" href="#" data-postid="${singPost.id}">
+                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                            <span class="like-button__label">Mi Piace</span>
+                        </a>
+                    </div>
+                    <div class="likes__counter">
+                        Piace a <b id="like-counter-1" class="js-likes-counter">${singPost.likes}</b> persone
+                    </div>
+                </div> 
+            </div>            
+    `;
+
+    target.append(post);
+}
