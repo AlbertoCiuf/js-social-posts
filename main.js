@@ -58,7 +58,7 @@ const posts = [
 
 const container = document.getElementById('container');
 
-// const likeButtonCTA = document.querySelector('.likes__cta');
+const likeButtonCTA = document.querySelector('.likes__cta');
 
 for (let index in posts) {
     
@@ -70,15 +70,12 @@ for (let index in posts) {
     container.innerHTML+= drawPosts(singlePost);
     
     
+    
+
+        
+
 }
 
-const likeButton = document.querySelector('.like-button');
-
-
-likeButton.addEventListener('click', function(){
-    if (!likeButton.contains('like-button--liked')) singlePost.likes++;
-    likeButton.classList.add('like-button--liked');
-});
 
 
 
@@ -103,7 +100,7 @@ function drawPosts(singPost) {
                     <div class="post-meta__data">
                         <div class="post-meta__author">${singPost.author.name}</div>
                         <div class="post-meta__time">
-                            ${singPost.created.split("-").reverse().join("-")}
+                            ${singPost.created.split("-").reverse().join("-").replace("-","/").replace("-","/")}
                         </div>
                     </div>
                 </div>
@@ -128,7 +125,15 @@ function drawPosts(singPost) {
       </div>      
     `;
 
-
+    const likeButton = document.querySelector('[datapost-id="]');
+    
+        
+    likeButtonCTA.addEventListener('click', function(){
+        if (!likeButton.classList.contains('like-button--liked')) singPost.likes++;
+        likeButton.classList.add('like-button--liked');
+        console.log('click');
+        });
+    
    
     return postHTML;
 }
