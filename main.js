@@ -68,6 +68,7 @@ for (let index in posts) {
 }
 
 
+
 //funzione che genera e stampa in html il contenuto
 function drawPosts(target, singPost) {
     //creo l'elemento html post
@@ -85,7 +86,7 @@ function drawPosts(target, singPost) {
 
                 <div class="post-meta__data">
                     <div class="post-meta__author">${singPost.author.name}</div>
-                    <div class="post-meta__time">${singPost.created}</div>
+                    <div class="post-meta__time">${singPost.created.split("-").reverse().join("-")}</div>
                 </div>
             </div>
         </div>
