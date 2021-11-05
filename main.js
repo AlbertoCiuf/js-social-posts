@@ -58,26 +58,43 @@ const posts = [
 
 const container = document.getElementById('container');
 
-const likeButtonCTA = document.querySelector('.likes__cta');
 
 for (let index in posts) {
     
     //assegno ad una costante ogni singolo oggetto presente nell'array posts
     const singlePost = posts[index];
     
-    
     //chiamo la funzine che genera e stampa il contenuto della pagina
     container.innerHTML+= drawPosts(singlePost);
     
-    
-    
-
-        
-
 }
 
+triggerLikes(posts);
 
 
+function triggerLikes(obj){   
+    for (let index in obj) {
+        const likeButton = document.querySelector(`[data-postid="${obj[index].id}"]`);
+        const likeCounter = document.querySelectorAll('.likes__counter');
+        likeButton.addEventListener('click', function(){
+            if (!likeButton.classList.contains('like-button--liked')) {
+                likeCounter[index].innerHTML = 
+                `
+                <div class="likes__counter">
+                    Piace a <b id="like-counter-1" class="js-likes-counter">${++obj[index].likes}</b> persone
+                 </div>
+                `;
+
+                likeButton.classList.add('like-button--liked');
+            }
+
+        });
+       
+
+        //console.log('--->',index,likeButton);
+    }
+
+}
 
 
 //funzione che genera e stampa in html il contenuto
@@ -100,7 +117,7 @@ function drawPosts(singPost) {
                     <div class="post-meta__data">
                         <div class="post-meta__author">${singPost.author.name}</div>
                         <div class="post-meta__time">
-                            ${singPost.created.split("-").reverse().join("-").replace("-","/").replace("-","/")}
+                            ${singPost.created.split("-").reverse().join("-").replaceAll("-","/")}
                         </div>
                     </div>
                 </div>
@@ -112,7 +129,7 @@ function drawPosts(singPost) {
                 <div class="post__footer">
                     <div class="likes js-likes">
                         <div class="likes__cta">
-                            <a class="like-button  js-like-button" href="#" data-postid="${singPost.id}">
+                            <a class="like-button  js-like-button" data-postid="${singPost.id}">
                                 <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                                 <span class="like-button__label">Mi Piace</span>
                             </a>
@@ -124,17 +141,7 @@ function drawPosts(singPost) {
                 </div>            
       </div>      
     `;
-
-    const likeButton = document.querySelector('[datapost-id="]');
     
-        
-    likeButtonCTA.addEventListener('click', function(){
-        if (!likeButton.classList.contains('like-button--liked')) singPost.likes++;
-        likeButton.classList.add('like-button--liked');
-        console.log('click');
-        });
-    
-   
     return postHTML;
 }
 
