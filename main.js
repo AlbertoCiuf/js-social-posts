@@ -76,6 +76,10 @@ function drawPosts(target, singPost) {
     post.className='post';
 
     //gestisco l'innerHTML dell'elemento post inserendo come contenuto le proprietà degli oggetti nell'array posts
+
+    //imposto logo boolean come immagine di default se l'attributo corrispondente è null
+    if (singPost.author.image === null) singPost.author.image = "http://www.boolean.careers/images/misc/logo-small.png";
+
     post.innerHTML = 
     `
         <div class="post__header">
@@ -86,7 +90,9 @@ function drawPosts(target, singPost) {
 
                 <div class="post-meta__data">
                     <div class="post-meta__author">${singPost.author.name}</div>
-                    <div class="post-meta__time">${singPost.created.split("-").reverse().join("-")}</div>
+                    <div class="post-meta__time">
+                        ${singPost.created.split("-").reverse().join("-")}
+                    </div>
                 </div>
             </div>
         </div>
